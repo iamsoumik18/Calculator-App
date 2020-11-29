@@ -314,7 +314,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    //evaluation
 
     public static double eval(final String str) {
         return new Object() {
@@ -340,17 +339,12 @@ public class MainActivity extends AppCompatActivity {
                 return x;
             }
 
-            // Grammar:
-            // expression = term | expression `+` term | expression `-` term
-            // term = factor | term `*` factor | term `/` factor
-            // factor = `+` factor | `-` factor | `(` expression `)`
-            //        | number | functionName factor | factor `^` factor
 
             double parseExpression() {
                 double x = parseTerm();
                 for (;;) {
-                    if      (eat('+')) x += parseTerm(); // addition
-                    else if (eat('-')) x -= parseTerm(); // subtraction
+                    if      (eat('+')) x += parseTerm(); 
+                    else if (eat('-')) x -= parseTerm(); 
                     else return x;
                 }
             }
@@ -358,23 +352,23 @@ public class MainActivity extends AppCompatActivity {
             double parseTerm() {
                 double x = parseFactor();
                 for (;;) {
-                    if      (eat('*')) x *= parseFactor(); // multiplication
-                    else if (eat('/')) x /= parseFactor(); // division
-                    else if (eat('%')) x %= parseFactor(); //modulo
+                    if      (eat('*')) x *= parseFactor(); 
+                    else if (eat('/')) x /= parseFactor(); 
+                    else if (eat('%')) x %= parseFactor(); 
                     else return x;
                 }
             }
 
             double parseFactor() {
-                if (eat('+')) return parseFactor(); // unary plus
-                if (eat('-')) return -parseFactor(); // unary minus
+                if (eat('+')) return parseFactor(); 
+                if (eat('-')) return -parseFactor(); 
 
                 double x;
                 int startPos = this.pos;
                 if (eat('(')) { // parentheses
                     x = parseExpression();
                     eat(')');
-                } else if ((ch >= '0' && ch <= '9') || ch == '.') { // numbers
+                } else if ((ch >= '0' && ch <= '9') || ch == '.') { 
                     while ((ch >= '0' && ch <= '9') || ch == '.') nextChar();
                     x = Double.parseDouble(str.substring(startPos, this.pos));
                 } else if (ch >= 'a' && ch <= 'z') { // functions
@@ -390,7 +384,7 @@ public class MainActivity extends AppCompatActivity {
                     throw new RuntimeException("Unexpected: " + (char)ch);
                 }
 
-                if (eat('^')) x = Math.pow(x, parseFactor()); // exponentiation
+                if (eat('^')) x = Math.pow(x, parseFactor()); 
 
                 return x;
             }

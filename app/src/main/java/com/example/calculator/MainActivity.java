@@ -63,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
         tvmain = findViewById(R.id.tvmain);
         tvsec = findViewById(R.id.tvsec);
 
-        //onclick listeners
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
